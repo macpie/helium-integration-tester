@@ -1,0 +1,19 @@
+{application, hit, [
+    {description, "An OTP application"},
+    {vsn, "0.1.0"},
+    {registered, []},
+    {mod, {hit_app, []}},
+    {applications, [
+        kernel,
+        stdlib,
+        lager,
+        observer_cli,
+        elli,
+        prometheus,
+        jsx
+    ]},
+    {env, []},
+    {modules, []},
+    {licenses, ["Apache 2.0"]},
+    {links, []}
+]}.

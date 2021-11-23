@@ -1,0 +1,18 @@
+version: '3'
+services:
+  hit:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hit:local
+    container_name: hit
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - prometheus
+  prometheus:
+      image: prom/prometheus
+      container_name: helium_prometheus
+      volumes:
+          - ./prometheus.yml:/etc/prometheus/prometheus.yml
