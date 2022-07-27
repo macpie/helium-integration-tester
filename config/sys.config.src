@@ -33,32 +33,6 @@
                     message,
                     "\n"
                 ]}
-            ]},
-            {lager_file_backend, [
-                {file, "info.log"},
-                {level, info},
-                {size, 0},
-                {date, "$D0"},
-                {count, 7},
-                {formatter_config, [
-                    "[",
-                    date,
-                    " ",
-                    time,
-                    "] ",
-                    pid,
-                    " [",
-                    severity,
-                    "]",
-                    {device_id, [" [", device_id, "]"], ""},
-                    " [",
-                    {module, ""},
-                    {function, [":", function], ""},
-                    {line, [":", line], ""},
-                    "] ",
-                    message,
-                    "\n"
-                ]}
             ]}
         ]}
     ]}

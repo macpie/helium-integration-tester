@@ -1,11 +1,11 @@
 version: '3'
 services:
-  hit:
+  helium_integration_tester:
     build:
       context: .
       dockerfile: Dockerfile
-    image: hit:local
-    container_name: hit
+    image: helium_integration_tester:local
+    container_name: helium_integration_tester
     restart: always
     ports:
       - "3000:80"
@@ -14,5 +14,6 @@ services:
   prometheus:
       image: prom/prometheus
       container_name: helium_prometheus
+      restart: always
       volumes:
           - ./prometheus.yml:/etc/prometheus/prometheus.yml

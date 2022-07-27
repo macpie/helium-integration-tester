@@ -2,9 +2,9 @@
 global:
   scrape_interval: 10s
   external_labels:
-    server: hit
+    server: helium_integration_tester
 
 scrape_configs:
-  - job_name: hit
+  - job_name: helium_integration_tester
     static_configs:
-      - targets: ['hit:80']
+      - targets: ['helium_integration_tester:80']

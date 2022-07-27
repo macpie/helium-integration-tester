@@ -1,0 +1,62 @@
+{
+    "app_eui": "XXXXXXX",
+    "dc": {
+        "balance": 100,
+        "nonce": 1
+    },
+    "dev_eui": "XXXXXXX",
+    "devaddr": "00010001",
+    "downlink_url": "https://google.com",
+    "fcnt": 1,
+    "hotspots": [{
+        "channel": 4,
+        "frequency": 904.7000122070312,
+        "hold_time": 0,
+        "id": "XXXXXXXXXXXXXXXXXXXX",
+        "lat": 45.1,
+        "long": -68.1,
+        "name": "tall-blonde-cat",
+        "reported_at": 1658961363655,
+        "rssi": -29.0,
+        "snr": 12.5,
+        "spreading": "SF9BW125",
+        "status": "success"
+    }, {
+        "channel": 4,
+        "frequency": 904.7000122070312,
+        "hold_time": 0,
+        "id": "XXXXXXXXXXXXXXXXXXXX",
+        "lat": 45.1,
+        "long": -68.1,
+        "name": "proud-clay-tiger",
+        "reported_at": 1658961363775,
+        "rssi": -49.0,
+        "snr": 13.5,
+        "spreading": "SF9BW125",
+        "status": "success"
+    }, {
+        "channel": 4,
+        "frequency": 904.7000122070312,
+        "hold_time": 233,
+        "id": "XXXXXXXXXXXXXXXXXXXX",
+        "lat": 45.1,
+        "long": -68.1,
+        "name": "dapper-fuchsia-snake",
+        "reported_at": 1658961363776,
+        "rssi": -124.0,
+        "snr": -11.5,
+        "spreading": "SF9BW125",
+        "status": "success"
+    }],
+    "id": "7cfa1c9b-0408-443d-98ca-4eae5d77862a",
+    "metadata": {},
+    "name": "Random Device",
+    "payload": "aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1wN1lYWGllZ2h0bw==",
+    "payload_size": 666,
+    "port": 1,
+    "raw_packet": "aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1wN1lYWGllZ2h0bw==",
+    "replay": false,
+    "reported_at": 1658961363655,
+    "type": "uplink",
+    "uuid": "adbfa2fe-8d8c-4577-9ac3-5d2b0dac5ab1"
+}

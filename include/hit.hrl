@@ -1,0 +1,1 @@
+-define(METRIC_REQ_GAUGE, "hit_req_gauge").

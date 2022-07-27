@@ -7,6 +7,8 @@
 
 -behaviour(supervisor).
 
+-include("hit.hrl").
+
 -export([start_link/0]).
 
 -export([init/1]).
@@ -45,7 +47,7 @@ init([]) ->
     {ok, _} = application:ensure_all_started(lager),
 
     _ = prometheus_gauge:declare([
-        {name, "hit_req_gauge"},
+        {name, ?METRIC_REQ_GAUGE},
         {help, "Helium Integration Tester Request Gauge"},
         {labels, [type, device_id, hotspot]}
     ]),
