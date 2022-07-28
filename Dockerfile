@@ -25,7 +25,7 @@ ENV PATH=$PATH:_build/default/rel/hit/bin
 
 CMD ["make", "run"]
 
-FROM erlang:24.3-alpine
+FROM erlang:24.3-alpine AS runner
 WORKDIR /opt/hit
 
 # Copy the built release
