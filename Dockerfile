@@ -7,13 +7,13 @@ RUN apk add --no-cache --update \
 
 WORKDIR /opt/hit
 
+ADD Makefile Makefile
 ADD rebar3 rebar3
 ADD rebar.config rebar.config
 ADD rebar.lock rebar.lock
 RUN ./rebar3 get-deps
 RUN make
 
-ADD Makefile Makefile
 ADD src/ src/
 ADD include/ include/
 RUN make
