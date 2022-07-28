@@ -1,16 +1,15 @@
 .PHONY: compile clean test rel run docker-build docker-run docker-test docker-exec
 
-
 REBAR=./rebar3
 
-compile:
+compile: |
 	$(REBAR) compile
 	$(REBAR) format
 
 clean:
 	git clean -dXfffffffffff
 
-test:
+test: |
 	$(REBAR) fmt --verbose --check rebar.config
 	$(REBAR) fmt --verbose --check "{src,include,test}/**/*.{hrl,erl,app.src}"
 	$(REBAR) xref
@@ -21,7 +20,7 @@ test:
 rel:
 	$(REBAR) release
 
-run:
+run: |
 	_build/default/rel/hit/bin/hit foreground
 
 docker-build:

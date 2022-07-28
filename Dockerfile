@@ -1,7 +1,7 @@
 FROM erlang:24.3-alpine AS builder
 
 RUN apk add --no-cache --update \
-    autoconf automake bison build-base bzip2 cmake curl \
+    make autoconf automake bison build-base bzip2 cmake curl \
     dbus-dev flex git gmp-dev libsodium-dev libtool linux-headers lz4 \
     openssl-dev pkgconfig protoc sed tar wget vim
 
@@ -11,7 +11,7 @@ ADD rebar3 rebar3
 ADD rebar.config rebar.config
 ADD rebar.lock rebar.lock
 RUN ./rebar3 get-deps
-RUN ./rebar3 compile
+RUN make
 
 ADD Makefile Makefile
 ADD src/ src/
