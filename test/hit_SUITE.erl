@@ -48,7 +48,6 @@ end_per_testcase(_TestCase, Config) ->
 %%--------------------------------------------------------------------
 basic_test(_Config) ->
     Data = load_json_file(),
-    Type = maps:get(type, Data),
     DeviceID = maps:get(id, Data),
     hackney:post(
         <<"http://127.0.0.1:80/hit">>,
@@ -59,10 +58,12 @@ basic_test(_Config) ->
     lists:foreach(
         fun(Hotspot) ->
             Name = maps:get(name, Hotspot, undefined),
-            ?assertEqual(1, prometheus_counter:value(?METRIC_REQ_COUNTER, [Type, DeviceID, Name]))
+            ?assertEqual(1, prometheus_counter:value(?METRIC_REQ_COUNTER, [DeviceID, Name]))
         end,
         maps:get(hotspots, Data, [])
     ),
+    Hotspots = maps:get(hotspots, Data, []),
+    ?assertEqual(erlang:length(Hotspots), prometheus_gauge:value(?METRIC_REQ_GAUGE, [DeviceID])),
     ok.
 
 %% ------------------------------------------------------------------
