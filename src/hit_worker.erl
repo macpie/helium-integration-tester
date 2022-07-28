@@ -2,6 +2,8 @@
 
 -behaviour(elli_handler).
 
+-include("hit.hrl").
+
 -export([
     handle/2,
     handle_event/3
@@ -22,7 +24,7 @@ handle('POST', [<<"hit">>], Req) ->
     lists:foreach(
         fun(Hotspot) ->
             Name = maps:get(name, Hotspot, undefined),
-            prometheus_gauge:set("hit_req_gauge", [Type, DeviceID, Name], FCnt),
+            prometheus_counter:inc(?METRIC_REQ_COUNTER, [Type, DeviceID, Name]),
             lager:info("seen by ~p", [Name])
         end,
         maps:get(hotspots, Body, [])

@@ -59,7 +59,7 @@ basic_test(_Config) ->
     lists:foreach(
         fun(Hotspot) ->
             Name = maps:get(name, Hotspot, undefined),
-            ?assertEqual(1, prometheus_gauge:value(?METRIC_REQ_GAUGE, [Type, DeviceID, Name]))
+            ?assertEqual(1, prometheus_counter:value(?METRIC_REQ_COUNTER, [Type, DeviceID, Name]))
         end,
         maps:get(hotspots, Data, [])
     ),

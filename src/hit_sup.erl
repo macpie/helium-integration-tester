@@ -46,9 +46,9 @@ init([]) ->
 
     {ok, _} = application:ensure_all_started(lager),
 
-    _ = prometheus_gauge:declare([
-        {name, ?METRIC_REQ_GAUGE},
-        {help, "Helium Integration Tester Request Gauge"},
+    _ = prometheus_counter:declare([
+        {name, ?METRIC_REQ_COUNTER},
+        {help, "Helium Integration Tester Request Counter"},
         {labels, [type, device_id, hotspot]}
     ]),
 
