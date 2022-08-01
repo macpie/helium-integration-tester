@@ -23,14 +23,18 @@ handle('POST', [<<"hit">>], Req) ->
     lager:info("got req for ~p @ fcnt ~p", [Type, FCnt]),
     Hotspots = maps:get(hotspots, Body, []),
     lists:foreach(
-        fun(Hotspot) ->
-            Name = maps:get(name, Hotspot, undefined),
-            prometheus_counter:inc(?METRIC_REQ_COUNTER, [DeviceID, Name]),
-            lager:info("seen by ~p", [Name])
+        fun(HotspotData) ->
+            HotspotName = maps:get(name, HotspotData, undefined),
+            RSSI = maps:get(rssi, HotspotData, undefined),
+            SNR = maps:get(snr, HotspotData, undefined),
+            prometheus_counter:inc(?METRIC_DEVICE_PACKETS, [DeviceID, HotspotName]),
+            prometheus_gauge:set(?METRIC_DEVICE_PACKETS_STATS, [DeviceID, HotspotName, rssi], RSSI),
+            prometheus_gauge:set(?METRIC_DEVICE_PACKETS_STATS, [DeviceID, HotspotName, snr], SNR),
+            lager:info("seen by ~p rssi ~p snr ~p", [HotspotName, RSSI, SNR])
         end,
         Hotspots
     ),
-    prometheus_gauge:set(?METRIC_REQ_GAUGE, [DeviceID], erlang:length(Hotspots)),
+    prometheus_gauge:set(?METRIC_HOTSPOTS_PER_DEVICE, [DeviceID], erlang:length(Hotspots)),
     {ok, [], <<>>};
 handle(_Method, _Path, _Req) ->
     lager:debug("got unknown req ~p on ~p", [_Method, _Path]),

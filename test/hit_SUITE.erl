@@ -56,14 +56,26 @@ basic_test(_Config) ->
         [with_body]
     ),
     lists:foreach(
-        fun(Hotspot) ->
-            Name = maps:get(name, Hotspot, undefined),
-            ?assertEqual(1, prometheus_counter:value(?METRIC_REQ_COUNTER, [DeviceID, Name]))
+        fun(HotspotData) ->
+            HotspotName = maps:get(name, HotspotData, undefined),
+            ?assertEqual(
+                1, prometheus_counter:value(?METRIC_DEVICE_PACKETS, [DeviceID, HotspotName])
+            ),
+            ?assertEqual(
+                maps:get(rssi, HotspotData, undefined),
+                prometheus_gauge:value(?METRIC_DEVICE_PACKETS_STATS, [DeviceID, HotspotName, rssi])
+            ),
+            ?assertEqual(
+                maps:get(snr, HotspotData, undefined),
+                prometheus_gauge:value(?METRIC_DEVICE_PACKETS_STATS, [DeviceID, HotspotName, snr])
+            )
         end,
         maps:get(hotspots, Data, [])
     ),
     Hotspots = maps:get(hotspots, Data, []),
-    ?assertEqual(erlang:length(Hotspots), prometheus_gauge:value(?METRIC_REQ_GAUGE, [DeviceID])),
+    ?assertEqual(
+        erlang:length(Hotspots), prometheus_gauge:value(?METRIC_HOTSPOTS_PER_DEVICE, [DeviceID])
+    ),
     ok.
 
 %% ------------------------------------------------------------------

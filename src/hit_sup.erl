@@ -47,15 +47,19 @@ init([]) ->
     {ok, _} = application:ensure_all_started(lager),
 
     _ = prometheus_counter:declare([
-        {name, ?METRIC_REQ_COUNTER},
-        {help, "Helium Integration Tester Request Counter"},
+        {name, ?METRIC_DEVICE_PACKETS},
+        {help, ""},
         {labels, [device_id, hotspot]}
     ]),
-
     _ = prometheus_gauge:declare([
-        {name, ?METRIC_REQ_GAUGE},
-        {help, "Helium Integration Tester Request Gauge"},
+        {name, ?METRIC_HOTSPOTS_PER_DEVICE},
+        {help, ""},
         {labels, [device_id]}
+    ]),
+    _ = prometheus_gauge:declare([
+        {name, ?METRIC_DEVICE_PACKETS_STATS},
+        {help, ""},
+        {labels, [device_id, hotspot, stat]}
     ]),
 
     ElliOpts = [{callback, hit_worker}, {port, 80}],
