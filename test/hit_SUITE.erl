@@ -68,6 +68,12 @@ basic_test(_Config) ->
             ?assertEqual(
                 maps:get(snr, HotspotData, undefined),
                 prometheus_gauge:value(?METRIC_DEVICE_PACKETS_STATS, [DeviceID, HotspotName, snr])
+            ),
+            ?assertEqual(
+                maps:get(hold_time, HotspotData, undefined),
+                prometheus_gauge:value(?METRIC_DEVICE_PACKETS_STATS, [
+                    DeviceID, HotspotName, hold_time
+                ])
             )
         end,
         maps:get(hotspots, Data, [])

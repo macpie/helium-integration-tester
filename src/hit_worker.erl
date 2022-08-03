@@ -27,9 +27,13 @@ handle('POST', [<<"hit">>], Req) ->
             HotspotName = maps:get(name, HotspotData, undefined),
             RSSI = maps:get(rssi, HotspotData, undefined),
             SNR = maps:get(snr, HotspotData, undefined),
+            HoldTime = maps:get(hold_time, HotspotData, undefined),
             prometheus_counter:inc(?METRIC_DEVICE_PACKETS, [DeviceID, HotspotName]),
             prometheus_gauge:set(?METRIC_DEVICE_PACKETS_STATS, [DeviceID, HotspotName, rssi], RSSI),
             prometheus_gauge:set(?METRIC_DEVICE_PACKETS_STATS, [DeviceID, HotspotName, snr], SNR),
+            prometheus_gauge:set(
+                ?METRIC_DEVICE_PACKETS_STATS, [DeviceID, HotspotName, hold_time], HoldTime
+            ),
             lager:info("seen by ~p rssi ~p snr ~p", [HotspotName, RSSI, SNR])
         end,
         Hotspots
