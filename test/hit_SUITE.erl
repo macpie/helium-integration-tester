@@ -49,6 +49,7 @@ end_per_testcase(_TestCase, Config) ->
 basic_test(_Config) ->
     Data = load_json_file(),
     DeviceID = maps:get(id, Data),
+    FCnt = maps:get(fcnt, Data, -1),
     hackney:post(
         <<"http://127.0.0.1:80/hit">>,
         [],
@@ -73,6 +74,12 @@ basic_test(_Config) ->
                 maps:get(hold_time, HotspotData, undefined),
                 prometheus_gauge:value(?METRIC_DEVICE_PACKETS_STATS, [
                     DeviceID, HotspotName, hold_time
+                ])
+            ),
+            ?assertEqual(
+                FCnt,
+                prometheus_gauge:value(?METRIC_DEVICE_PACKETS_STATS, [
+                    DeviceID, HotspotName, fcnt
                 ])
             )
         end,

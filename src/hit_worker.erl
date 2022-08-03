@@ -34,6 +34,9 @@ handle('POST', [<<"hit">>], Req) ->
             prometheus_gauge:set(
                 ?METRIC_DEVICE_PACKETS_STATS, [DeviceID, HotspotName, hold_time], HoldTime
             ),
+            prometheus_gauge:set(
+                ?METRIC_DEVICE_PACKETS_STATS, [DeviceID, HotspotName, fcnt], FCnt
+            ),
             lager:info("seen by ~p rssi ~p snr ~p", [HotspotName, RSSI, SNR])
         end,
         Hotspots
